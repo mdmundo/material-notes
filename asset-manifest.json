@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/material-notes/static/js/main.fe128caf.chunk.js",
-    "main.js.map": "/material-notes/static/js/main.fe128caf.chunk.js.map",
+    "main.js": "/material-notes/static/js/main.eba9a3fa.chunk.js",
+    "main.js.map": "/material-notes/static/js/main.eba9a3fa.chunk.js.map",
     "runtime-main.js": "/material-notes/static/js/runtime-main.a971415a.js",
     "runtime-main.js.map": "/material-notes/static/js/runtime-main.a971415a.js.map",
-    "static/js/2.cf418318.chunk.js": "/material-notes/static/js/2.cf418318.chunk.js",
-    "static/js/2.cf418318.chunk.js.map": "/material-notes/static/js/2.cf418318.chunk.js.map",
+    "static/js/2.75f4b41b.chunk.js": "/material-notes/static/js/2.75f4b41b.chunk.js",
+    "static/js/2.75f4b41b.chunk.js.map": "/material-notes/static/js/2.75f4b41b.chunk.js.map",
     "static/js/3.b49ded43.chunk.js": "/material-notes/static/js/3.b49ded43.chunk.js",
     "static/js/3.b49ded43.chunk.js.map": "/material-notes/static/js/3.b49ded43.chunk.js.map",
     "index.html": "/material-notes/index.html",
-    "static/js/2.cf418318.chunk.js.LICENSE.txt": "/material-notes/static/js/2.cf418318.chunk.js.LICENSE.txt"
+    "static/js/2.75f4b41b.chunk.js.LICENSE.txt": "/material-notes/static/js/2.75f4b41b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a971415a.js",
-    "static/js/2.cf418318.chunk.js",
-    "static/js/main.fe128caf.chunk.js"
+    "static/js/2.75f4b41b.chunk.js",
+    "static/js/main.eba9a3fa.chunk.js"
   ]
 }
