@@ -15,6 +15,7 @@ const Note = ({ note }) => {
     <ListItem>
       <ListItemIcon>
         <Checkbox
+          checked={note.checked}
           onChange={(e) =>
             dispatch({
               type: 'TOGGLE_NOTE',
