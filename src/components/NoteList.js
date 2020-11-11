@@ -4,6 +4,7 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import Note from './Note';
 import NotesContext from '../context/notes-context';
 
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   grid: {
     paddingTop: theme.spacing(3)
+  },
+  depositContext: {
+    flex: 1
   }
 }));
 
@@ -32,18 +36,31 @@ const NoteList = () => {
   return (
     <Grid item className={classes.grid}>
       <Paper className={classes.paper}>
-        <List className={classes.list}>
-          {notes.map((note, index) =>
-            index === 0 ? (
-              <Note key={note.id} note={note} />
-            ) : (
-              <>
-                <Divider variant='inset' component='li' />
+        {notes.length === 0 ? (
+          <>
+            <Typography component='p' variant='h4'>
+              Empty
+            </Typography>
+            <Typography
+              color='textSecondary'
+              className={classes.depositContext}>
+              There is note here
+            </Typography>
+          </>
+        ) : (
+          <List className={classes.list}>
+            {notes.map((note, index) =>
+              index === 0 ? (
                 <Note key={note.id} note={note} />
-              </>
-            )
-          )}
-        </List>
+              ) : (
+                <>
+                  <Divider variant='inset' component='li' />
+                  <Note key={note.id} note={note} />
+                </>
+              )
+            )}
+          </List>
+        )}
       </Paper>
     </Grid>
   );
