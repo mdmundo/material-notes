@@ -1,5 +1,18 @@
 import { useState, useContext } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import NotesContext from '../context/notes-context';
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2)
+  }
+}));
 
 const AddNoteForm = () => {
   const { dispatch } = useContext(NotesContext);
@@ -17,17 +30,44 @@ const AddNoteForm = () => {
     setBody('');
   };
 
+  const classes = useStyles();
+
   return (
-    <div>
-      <p>Add note</p>
-      <form onSubmit={addNote}>
-        {'Title: '}
-        <input value={title} onChange={(e) => setTitle(e.target.value)} />
-        {'Body: '}
-        <input value={body} onChange={(e) => setBody(e.target.value)}></input>
-        <button>Add Note</button>
-      </form>
-    </div>
+    <form className={classes.form} onSubmit={addNote} noValidate>
+      <TextField
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        variant='outlined'
+        margin='normal'
+        fullWidth
+        id='title'
+        label='Title'
+        name='title'
+        autoComplete='off'
+        autoFocus
+      />
+      <TextField
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        variant='outlined'
+        margin='normal'
+        fullWidth
+        name='body'
+        label='Body'
+        type='body'
+        id='body'
+        autoComplete='off'
+        multiline
+      />
+      <Button
+        type='submit'
+        fullWidth
+        variant='contained'
+        color='primary'
+        className={classes.submit}>
+        Add Note
+      </Button>
+    </form>
   );
 };
 
