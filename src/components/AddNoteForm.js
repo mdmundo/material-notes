@@ -18,16 +18,28 @@ const AddNoteForm = () => {
   const { dispatch } = useContext(NotesContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [titleHelper, setTitleHelper] = useState('');
+  const [bodyHelper, setBodyHelper] = useState('');
+  const [titleError, setTitleError] = useState(false);
+  const [bodyError, setBodyError] = useState(false);
 
   const addNote = (e) => {
     e.preventDefault();
-    dispatch({
-      type: 'ADD_NOTE',
-      title,
-      body
-    });
-    setTitle('');
-    setBody('');
+
+    setTitleError(!title);
+    setBodyError(!body);
+    setTitleHelper(title ? '' : 'Title can not be empty.');
+    setBodyHelper(body ? '' : 'Body can not be empty.');
+
+    if (title && body) {
+      dispatch({
+        type: 'ADD_NOTE',
+        title,
+        body
+      });
+      setTitle('');
+      setBody('');
+    }
   };
 
   const classes = useStyles();
@@ -37,6 +49,8 @@ const AddNoteForm = () => {
       <TextField
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        error={titleError}
+        helperText={titleHelper}
         variant='outlined'
         margin='normal'
         fullWidth
@@ -49,6 +63,8 @@ const AddNoteForm = () => {
       <TextField
         value={body}
         onChange={(e) => setBody(e.target.value)}
+        error={bodyError}
+        helperText={bodyHelper}
         variant='outlined'
         margin='normal'
         fullWidth
