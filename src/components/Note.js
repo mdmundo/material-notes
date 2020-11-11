@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+import Tooltip from '@material-ui/core/Tooltip';
 import NotesContext from '../context/notes-context';
 
 const Note = ({ note }) => {
@@ -14,24 +15,28 @@ const Note = ({ note }) => {
   return (
     <ListItem>
       <ListItemIcon>
-        <Checkbox
-          checked={note.checked}
-          onChange={(e) =>
-            dispatch({
-              type: 'TOGGLE_NOTE',
-              id: note.id,
-              checked: e.target.checked
-            })
-          }
-        />
+        <Tooltip title='Mark this note' placement='left'>
+          <Checkbox
+            checked={note.checked}
+            onChange={(e) =>
+              dispatch({
+                type: 'TOGGLE_NOTE',
+                id: note.id,
+                checked: e.target.checked
+              })
+            }
+          />
+        </Tooltip>
       </ListItemIcon>
       <ListItemText primary={note.title} secondary={note.body} />
       <ListItemSecondaryAction>
-        <IconButton
-          edge='end'
-          onClick={() => dispatch({ type: 'REMOVE_NOTE', id: note.id })}>
-          <DeleteIcon />
-        </IconButton>
+        <Tooltip title='Delete this note' placement='right'>
+          <IconButton
+            edge='end'
+            onClick={() => dispatch({ type: 'REMOVE_NOTE', id: note.id })}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       </ListItemSecondaryAction>
     </ListItem>
   );
