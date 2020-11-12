@@ -6,8 +6,13 @@ const notesReducer = (state, action) => {
       return action.notes;
     case 'ADD_NOTE':
       return [
-        ...state,
-        { id: uuidv4(), title: action.title, body: action.body, checked: false }
+        {
+          id: uuidv4(),
+          title: action.title,
+          body: action.body,
+          checked: false
+        },
+        ...state
       ];
     case 'REMOVE_NOTE':
       return state.filter((note) => note.id !== action.id);
