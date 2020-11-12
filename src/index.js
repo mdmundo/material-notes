@@ -1,11 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import NoteApp from './components/NoteApp';
 import reportWebVitals from './reportWebVitals';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      dark: '#622520',
+      main: '#8C362E',
+      light: '#a35e57'
+    },
+    secondary: {
+      dark: '#20613c',
+      main: '#2E8B57',
+      light: '#57a278'
+    }
+  }
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <NoteApp />
+    <ThemeProvider theme={theme}>
+      <NoteApp />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
