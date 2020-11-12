@@ -37,16 +37,16 @@ const NoteList = () => {
     <Grid item className={classes.grid}>
       <Paper className={classes.paper}>
         {notes.length === 0 ? (
-          <>
+          <div>
             <Typography component='p' variant='h4'>
               Empty
             </Typography>
             <Typography
               color='textSecondary'
               className={classes.depositContext}>
-              There is note here
+              There is no note here
             </Typography>
-          </>
+          </div>
         ) : (
           <List className={classes.list}>
             {notes.map((note, index) =>

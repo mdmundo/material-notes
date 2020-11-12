@@ -28,7 +28,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    minHeight: '100vh'
+  },
+  main: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2)
   },
@@ -70,24 +72,26 @@ const NoteApp = () => {
 
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>
-      <Container component='main' className={classes.root} maxWidth='xs'>
+      <div className={classes.root}>
         <CssBaseline />
-        <div className={classes.upper}>
-          <Avatar className={classes.avatar}>
-            <EventNoteIcon />
-          </Avatar>
-          <Typography component='h1' variant='h3'>
-            Notes
-          </Typography>
-          <AddNoteForm />
-        </div>
-        <NoteList />
-      </Container>
-      <footer className={classes.footer}>
-        <Container maxWidth='sm'>
-          <Copyright />
+        <Container component='main' className={classes.main} maxWidth='xs'>
+          <div className={classes.upper}>
+            <Avatar className={classes.avatar}>
+              <EventNoteIcon />
+            </Avatar>
+            <Typography component='h1' variant='h3'>
+              Notes
+            </Typography>
+            <AddNoteForm />
+          </div>
+          <NoteList />
         </Container>
-      </footer>
+        <footer className={classes.footer}>
+          <Container maxWidth='sm'>
+            <Copyright />
+          </Container>
+        </footer>
+      </div>
     </NotesContext.Provider>
   );
 };
