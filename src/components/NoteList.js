@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
@@ -10,21 +9,17 @@ import NotesContext from '../context/notes-context';
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: '100%',
-    maxWidth: '36ch',
-    backgroundColor: theme.palette.background.paper
+    width: '100%'
   },
   paper: {
+    marginTop: theme.spacing(1.5),
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column'
   },
   grid: {
-    paddingTop: theme.spacing(3)
-  },
-  depositContext: {
-    flex: 1
+    paddingTop: theme.spacing(2)
   }
 }));
 
@@ -34,35 +29,27 @@ const NoteList = () => {
   const classes = useStyles();
 
   return (
-    <Grid item className={classes.grid}>
-      <Paper className={classes.paper}>
-        {notes.length === 0 ? (
-          <div>
-            <Typography component='p' variant='h4'>
-              Empty
-            </Typography>
-            <Typography
-              color='textSecondary'
-              className={classes.depositContext}>
-              There is no note here
-            </Typography>
-          </div>
-        ) : (
+    <>
+      {notes.length === 0 ? (
+        <Grid item className={classes.grid}>
           <List className={classes.list}>
-            {notes.map((note, index) =>
-              index === 0 ? (
-                <Note key={note.id} note={note} />
-              ) : (
-                <>
-                  <Divider variant='inset' component='li' />
-                  <Note key={note.id} note={note} />
-                </>
-              )
-            )}
+            <Paper className={classes.paper}>
+              <Typography variant='body2' display='block' color='textSecondary'>
+                There is no note here.
+              </Typography>
+            </Paper>
           </List>
-        )}
-      </Paper>
-    </Grid>
+        </Grid>
+      ) : (
+        <Grid item className={classes.grid}>
+          <List className={classes.list}>
+            {notes.map((note) => (
+              <Note key={note.id} note={note} />
+            ))}
+          </List>
+        </Grid>
+      )}
+    </>
   );
 };
 

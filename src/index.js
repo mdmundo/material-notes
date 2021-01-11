@@ -7,14 +7,14 @@ import reportWebVitals from './reportWebVitals';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      dark: '#622520',
-      main: '#8C362E',
-      light: '#a35e57'
+      dark: "rgb(17, 82, 147)",
+      light: "rgb(71, 145, 219)",
+      main: "#1976d2"
     },
     secondary: {
-      dark: '#20613c',
-      main: '#2E8B57',
-      light: '#57a278'
+      dark: "rgb(154, 0, 54)",
+      light: "rgb(227, 51, 113)",
+      main: "rgb(220, 0, 78)"
     }
   }
 });
