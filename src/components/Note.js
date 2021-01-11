@@ -35,9 +35,10 @@ const Note = ({ note }) => {
             <Checkbox
               checked={note.checked}
               onChange={(e) =>
-                dispatch(
-                  startToggleNote({ id: note.id, checked: e.target.checked })
-                )
+                startToggleNote(dispatch, {
+                  id: note.id,
+                  checked: e.target.checked
+                })
               }
             />
           </Tooltip>
@@ -52,7 +53,7 @@ const Note = ({ note }) => {
           <Tooltip title='Delete this note' placement='right'>
             <IconButton
               edge='end'
-              onClick={() => dispatch(startRemoveNote({ id: note.id }))}>
+              onClick={() => startRemoveNote(dispatch, { id: note.id })}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>

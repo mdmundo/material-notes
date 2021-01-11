@@ -5,21 +5,19 @@ export const addNote = (note) => ({
   note
 });
 
-export const startAddNote = (note) => {
-  return (dispatch) => {
-    return database
-      .ref('notes')
-      .push(note)
-      .then((ref) => {
-        dispatch(
-          addNote({
-            id: ref.key,
-            checked: false,
-            ...note
-          })
-        );
-      });
-  };
+export const startAddNote = (dispatch, note) => {
+  database
+    .ref('notes')
+    .push(note)
+    .then((ref) => {
+      dispatch(
+        addNote({
+          id: ref.key,
+          checked: false,
+          ...note
+        })
+      );
+    });
 };
 
 export const removeNote = ({ id }) => ({
@@ -27,15 +25,13 @@ export const removeNote = ({ id }) => ({
   id
 });
 
-export const startRemoveNote = ({ id }) => {
-  return (dispatch) => {
-    return database
-      .ref(`notes/${id}`)
-      .remove()
-      .then(() => {
-        dispatch(removeNote({ id }));
-      });
-  };
+export const startRemoveNote = (dispatch, { id }) => {
+  database
+    .ref(`notes/${id}`)
+    .remove()
+    .then(() => {
+      dispatch(removeNote({ id }));
+    });
 };
 
 export const toggleNote = ({ id, checked }) => ({
@@ -44,15 +40,13 @@ export const toggleNote = ({ id, checked }) => ({
   checked
 });
 
-export const startToggleNote = ({ id, checked }) => {
-  return (dispatch) => {
-    return database
-      .ref(`notes/${id}`)
-      .update({ checked })
-      .then(() => {
-        dispatch(toggleNote({ id, checked }));
-      });
-  };
+export const startToggleNote = (dispatch, { id, checked }) => {
+  database
+    .ref(`notes/${id}`)
+    .update({ checked })
+    .then(() => {
+      dispatch(toggleNote({ id, checked }));
+    });
 };
 
 export const setNotes = (notes) => ({
@@ -60,22 +54,20 @@ export const setNotes = (notes) => ({
   notes
 });
 
-export const startSetNotes = () => {
-  return (dispatch) => {
-    return database
-      .ref('notes')
-      .once('value')
-      .then((snapshot) => {
-        const notes = [];
+export const startSetNotes = (dispatch) => {
+  database
+    .ref('notes')
+    .once('value')
+    .then((snapshot) => {
+      const notes = [];
 
-        snapshot.forEach((childSnapshot) => {
-          notes.push({
-            id: childSnapshot.key,
-            ...childSnapshot.val()
-          });
+      snapshot.forEach((childSnapshot) => {
+        notes.push({
+          id: childSnapshot.key,
+          ...childSnapshot.val()
         });
-
-        dispatch(setNotes(notes));
       });
-  };
+
+      dispatch(setNotes(notes));
+    });
 };

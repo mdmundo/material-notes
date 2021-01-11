@@ -58,7 +58,7 @@ const NoteApp = () => {
   const [notes, dispatch] = useReducer(notesReducer, []);
 
   useEffect(() => {
-    dispatch(startSetNotes());
+    startSetNotes(dispatch);
   }, []);
 
   const classes = useStyles();

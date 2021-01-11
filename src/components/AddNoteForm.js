@@ -33,7 +33,7 @@ const AddNoteForm = () => {
     setBodyHelper(body ? '' : 'Body can not be empty.');
 
     if (title && body) {
-      dispatch(startAddNote(dispatch, { title, body }));
+      startAddNote(dispatch, { title, body });
       setTitle('');
       setBody('');
     }
