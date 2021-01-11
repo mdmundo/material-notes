@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import NotesContext from '../context/notes-context';
+import { startAddExpense } from '../actions/notes';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -32,11 +33,7 @@ const AddNoteForm = () => {
     setBodyHelper(body ? '' : 'Body can not be empty.');
 
     if (title && body) {
-      dispatch({
-        type: 'ADD_NOTE',
-        title,
-        body
-      });
+      dispatch(startAddExpense({ title, body }));
       setTitle('');
       setBody('');
     }

@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import NotesContext from '../context/notes-context';
+import { startRemoveNote, startToggleNote } from '../actions/notes';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,11 +35,9 @@ const Note = ({ note }) => {
             <Checkbox
               checked={note.checked}
               onChange={(e) =>
-                dispatch({
-                  type: 'TOGGLE_NOTE',
-                  id: note.id,
-                  checked: e.target.checked
-                })
+                dispatch(
+                  startToggleNote({ id: note.id, checked: e.target.checked })
+                )
               }
             />
           </Tooltip>
@@ -53,7 +52,7 @@ const Note = ({ note }) => {
           <Tooltip title='Delete this note' placement='right'>
             <IconButton
               edge='end'
-              onClick={() => dispatch({ type: 'REMOVE_NOTE', id: note.id })}>
+              onClick={() => dispatch(startRemoveNote({ id: note.id }))}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>

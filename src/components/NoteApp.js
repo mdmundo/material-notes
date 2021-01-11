@@ -10,6 +10,7 @@ import AddNoteForm from './AddNoteForm';
 import NoteList from './NoteList';
 import NotesContext from '../context/notes-context';
 import notesReducer from '../reducers/notes';
+import { startSetNotes } from '../actions/notes';
 
 const Copyright = () => {
   return (
@@ -57,16 +58,8 @@ const NoteApp = () => {
   const [notes, dispatch] = useReducer(notesReducer, []);
 
   useEffect(() => {
-    const notes = JSON.parse(localStorage.getItem('notes'));
-
-    if (notes) {
-      dispatch({ type: 'POPULATE_NOTES', notes });
-    }
+    dispatch(startSetNotes());
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes));
-  }, [notes]);
 
   const classes = useStyles();
 

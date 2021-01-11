@@ -3,18 +3,19 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import NoteApp from './components/NoteApp';
 import reportWebVitals from './reportWebVitals';
+import './firebase';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      dark: "rgb(17, 82, 147)",
-      light: "rgb(71, 145, 219)",
-      main: "#1976d2"
+      dark: 'rgb(17, 82, 147)',
+      light: 'rgb(71, 145, 219)',
+      main: '#1976d2'
     },
     secondary: {
-      dark: "rgb(154, 0, 54)",
-      light: "rgb(227, 51, 113)",
-      main: "rgb(220, 0, 78)"
+      dark: 'rgb(154, 0, 54)',
+      light: 'rgb(227, 51, 113)',
+      main: 'rgb(220, 0, 78)'
     }
   }
 });
