@@ -60,7 +60,6 @@ export const startSetNotes = ({ auth }, dispatch) => {
     .once('value')
     .then((snapshot) => {
       const notes = [];
-      console.log(`users/${auth?.uid}/notes`);
 
       snapshot.forEach((childSnapshot) => {
         notes.push({
