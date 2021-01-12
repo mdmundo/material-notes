@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import NoteApp from './components/NoteApp';
 import reportWebVitals from './reportWebVitals';
-import './firebase';
 
 const theme = createMuiTheme({
   palette: {

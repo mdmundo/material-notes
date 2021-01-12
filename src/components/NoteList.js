@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Note from './Note';
-import NotesContext from '../context/notes-context';
+import AppContext from '../context';
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -24,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NoteList = () => {
-  const { notes } = useContext(NotesContext);
+  const { app } = useContext(AppContext);
 
   const classes = useStyles();
 
   return (
     <>
-      {notes.length === 0 ? (
+      {app.notes.length === 0 ? (
         <Grid item className={classes.grid}>
           <List className={classes.list}>
             <Paper className={classes.paper}>
@@ -43,7 +43,7 @@ const NoteList = () => {
       ) : (
         <Grid item className={classes.grid}>
           <List className={classes.list}>
-            {notes.map((note) => (
+            {app.notes.map((note) => (
               <Note key={note.id} note={note} />
             ))}
           </List>

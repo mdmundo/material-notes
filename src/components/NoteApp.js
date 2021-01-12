@@ -8,9 +8,13 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddNoteForm from './AddNoteForm';
 import NoteList from './NoteList';
-import NotesContext from '../context/notes-context';
-import notesReducer from '../reducers/notes';
+import Login from './Login';
+import AppContext from '../context';
+import appReducer from '../reducer';
 import { startSetNotes } from '../actions/notes';
+import { login, logout } from '../actions/auth';
+import { firebase } from '../firebase';
+import useFirebaseAuthentication from '../hooks/auth';
 
 const Copyright = () => {
   return (
@@ -55,16 +59,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NoteApp = () => {
-  const [notes, dispatch] = useReducer(notesReducer, []);
+  const defaultState = { auth: { uid: null }, notes: [] };
+  const [app, dispatch] = useReducer(appReducer, defaultState);
+
+  const user = useFirebaseAuthentication(firebase);
 
   useEffect(() => {
-    startSetNotes(dispatch);
-  }, []);
+    if (user) {
+      dispatch(login(user.uid));
+      startSetNotes(app, dispatch);
+    } else {
+      dispatch(logout());
+    }
+  }, [user]);
 
   const classes = useStyles();
 
   return (
-    <NotesContext.Provider value={{ notes, dispatch }}>
+    <AppContext.Provider value={{ app, dispatch }}>
       <div className={classes.root}>
         <CssBaseline />
         <Container component='main' className={classes.main} maxWidth='xs'>
@@ -75,9 +87,15 @@ const NoteApp = () => {
             <Typography component='h1' variant='h3'>
               Notes
             </Typography>
-            <AddNoteForm />
           </div>
-          <NoteList />
+          {user ? (
+            <>
+              <AddNoteForm />
+              <NoteList />
+            </>
+          ) : (
+            <Login />
+          )}
         </Container>
         <footer className={classes.footer}>
           <Container maxWidth='sm'>
@@ -85,7 +103,7 @@ const NoteApp = () => {
           </Container>
         </footer>
       </div>
-    </NotesContext.Provider>
+    </AppContext.Provider>
   );
 };
 

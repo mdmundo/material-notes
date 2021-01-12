@@ -1,8 +1,10 @@
 import { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import NotesContext from '../context/notes-context';
+import Logout from './Logout';
+import AppContext from '../context';
 import { startAddNote } from '../actions/notes';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddNoteForm = () => {
-  const { dispatch } = useContext(NotesContext);
+  const { app, dispatch } = useContext(AppContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [titleHelper, setTitleHelper] = useState('');
@@ -33,7 +35,7 @@ const AddNoteForm = () => {
     setBodyHelper(body ? '' : 'Body can not be empty.');
 
     if (title && body) {
-      startAddNote(dispatch, { title, body });
+      startAddNote(app, dispatch, { title, body });
       setTitle('');
       setBody('');
     }
@@ -72,14 +74,16 @@ const AddNoteForm = () => {
         autoComplete='off'
         multiline
       />
-      <Button
-        type='submit'
-        fullWidth
-        variant='contained'
-        color='primary'
-        className={classes.submit}>
-        Add Note
-      </Button>
+      <Grid container spacing={1} className={classes.submit}>
+        <Grid item xs={9}>
+          <Button fullWidth type='submit' variant='contained' color='primary'>
+            Add Note
+          </Button>
+        </Grid>
+        <Grid item xs={3}>
+          <Logout />
+        </Grid>
+      </Grid>
     </form>
   );
 };

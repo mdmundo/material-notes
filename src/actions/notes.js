@@ -5,9 +5,9 @@ export const addNote = (note) => ({
   note
 });
 
-export const startAddNote = (dispatch, note) => {
+export const startAddNote = ({ auth }, dispatch, note) => {
   database
-    .ref('notes')
+    .ref(`users/${auth?.uid}/notes`)
     .push(note)
     .then((ref) => {
       dispatch(
@@ -25,9 +25,9 @@ export const removeNote = ({ id }) => ({
   id
 });
 
-export const startRemoveNote = (dispatch, { id }) => {
+export const startRemoveNote = ({ auth }, dispatch, { id }) => {
   database
-    .ref(`notes/${id}`)
+    .ref(`users/${auth?.uid}/notes/${id}`)
     .remove()
     .then(() => {
       dispatch(removeNote({ id }));
@@ -40,9 +40,9 @@ export const toggleNote = ({ id, checked }) => ({
   checked
 });
 
-export const startToggleNote = (dispatch, { id, checked }) => {
+export const startToggleNote = ({ auth }, dispatch, { id, checked }) => {
   database
-    .ref(`notes/${id}`)
+    .ref(`users/${auth?.uid}/notes/${id}`)
     .update({ checked })
     .then(() => {
       dispatch(toggleNote({ id, checked }));
@@ -54,12 +54,13 @@ export const setNotes = (notes) => ({
   notes
 });
 
-export const startSetNotes = (dispatch) => {
+export const startSetNotes = ({ auth }, dispatch) => {
   database
-    .ref('notes')
+    .ref(`users/${auth?.uid}/notes`)
     .once('value')
     .then((snapshot) => {
       const notes = [];
+      console.log(`users/${auth?.uid}/notes`);
 
       snapshot.forEach((childSnapshot) => {
         notes.push({

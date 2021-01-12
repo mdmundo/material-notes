@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import NotesContext from '../context/notes-context';
+import AppContext from '../context';
 import { startRemoveNote, startToggleNote } from '../actions/notes';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Note = ({ note }) => {
-  const { dispatch } = useContext(NotesContext);
+  const { app, dispatch } = useContext(AppContext);
   const classes = useStyles();
 
   return (
@@ -35,7 +35,7 @@ const Note = ({ note }) => {
             <Checkbox
               checked={note.checked}
               onChange={(e) =>
-                startToggleNote(dispatch, {
+                startToggleNote(app, dispatch, {
                   id: note.id,
                   checked: e.target.checked
                 })
@@ -44,7 +44,7 @@ const Note = ({ note }) => {
           </Tooltip>
         </ListItemIcon>
         <ListItemText
-          primary={note.title}
+          primary={<Typography variant='body1'>{note.title}</Typography>}
           secondary={note.body.split('\n').map((str, index) => (
             <Typography key={index}>{str}</Typography>
           ))}
@@ -53,7 +53,7 @@ const Note = ({ note }) => {
           <Tooltip title='Delete this note' placement='right'>
             <IconButton
               edge='end'
-              onClick={() => startRemoveNote(dispatch, { id: note.id })}>
+              onClick={() => startRemoveNote(app, dispatch, { id: note.id })}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>

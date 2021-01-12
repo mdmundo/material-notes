@@ -13,4 +13,19 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-export { firebase, database as default };
+firebase
+  .auth()
+  .getRedirectResult()
+  .then((result) => {
+    if (result.credential) {
+      // This gives you a Google Access Token.
+      const token = result.credential.accessToken;
+    }
+    const user = result.user;
+  });
+
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.addScope('profile');
+provider.addScope('email');
+
+export { firebase, provider, database as default };
