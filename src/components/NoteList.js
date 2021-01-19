@@ -3,10 +3,11 @@ import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Note from './Note';
 import { useList } from 'react-firebase-hooks/database';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Note from './Note';
 import database, { firebase } from '../firebase';
+import Loading from './Loading';
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -34,7 +35,9 @@ const NoteList = () => {
 
   return (
     <>
-      {snapshots.length === 0 ? (
+      {loadingNotes ? (
+        <Loading />
+      ) : snapshots.length === 0 ? (
         <Grid item className={classes.grid}>
           <List className={classes.list}>
             <Paper className={classes.paper}>

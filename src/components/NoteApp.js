@@ -5,11 +5,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import AddNoteForm from './AddNoteForm';
 import NoteList from './NoteList';
 import Login from './Login';
 import { firebase } from '../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import Loading from './Loading';
 
 const Copyright = () => {
   return (
@@ -74,6 +75,8 @@ const NoteApp = () => {
             <AddNoteForm />
             <NoteList />
           </>
+        ) : loading ? (
+          <Loading />
         ) : (
           <Login />
         )}
