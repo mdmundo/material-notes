@@ -9,7 +9,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import grey from '@material-ui/core/colors/grey';
 import database from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +30,7 @@ const Note = ({ note }) => {
         <ListItemIcon>
           <Tooltip title='Mark this note' placement='left'>
             <Checkbox
-              checked={note.checked}
+              checked={note.checked || false}
               onChange={(e) =>
                 database
                   .ref(`notes/${note.key}`)
