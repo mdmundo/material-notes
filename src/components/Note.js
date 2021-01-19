@@ -9,7 +9,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import database from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import database, { firebase } from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Note = ({ note }) => {
+  const [user, loadingAuth, errorAuth] = useAuthState(firebase.auth());
+
   const classes = useStyles();
 
   return (
@@ -33,7 +36,7 @@ const Note = ({ note }) => {
               checked={note.checked || false}
               onChange={(e) =>
                 database
-                  .ref(`notes/${note.key}`)
+                  .ref(`users/${user.uid}/notes/${note.key}`)
                   .update({ checked: e.target.checked })
               }
             />
@@ -52,7 +55,9 @@ const Note = ({ note }) => {
           <Tooltip title='Delete this note' placement='right'>
             <IconButton
               edge='end'
-              onClick={() => database.ref(`notes/${note.key}`).remove()}>
+              onClick={() =>
+                database.ref(`users/${user.uid}/notes/${note.key}`).remove()
+              }>
               <DeleteIcon />
             </IconButton>
           </Tooltip>

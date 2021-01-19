@@ -5,7 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Note from './Note';
 import { useList } from 'react-firebase-hooks/database';
-import database from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import database, { firebase } from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -24,7 +25,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NoteList = () => {
-  const [snapshots, loading, error] = useList(database.ref('notes'));
+  const [user, loadingAuth, errorAuth] = useAuthState(firebase.auth());
+  const [snapshots, loadingNotes, errorNotes] = useList(
+    database.ref(`users/${user.uid}/notes`)
+  );
 
   const classes = useStyles();
 

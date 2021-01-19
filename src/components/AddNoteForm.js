@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import database, { firebase } from '../firebase';
 import Logout from './Logout';
-import database from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -17,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddNoteForm = () => {
+  const [user, loadingAuth, errorAuth] = useAuthState(firebase.auth());
+
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [titleHelper, setTitleHelper] = useState('');
@@ -33,7 +36,7 @@ const AddNoteForm = () => {
     setBodyHelper(body ? '' : 'Body can not be empty.');
 
     if (title && body) {
-      database.ref(`notes`).push({ title, body });
+      database.ref(`users/${user.uid}/notes`).push({ title, body });
       setTitle('');
       setBody('');
     }
