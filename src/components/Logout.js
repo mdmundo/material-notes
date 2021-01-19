@@ -1,9 +1,15 @@
 import Button from '@material-ui/core/Button';
-import { startLogout } from '../actions/auth';
+import { firebase } from '../firebase';
 
 const Logout = () => {
   return (
-    <Button fullWidth variant='text' color='secondary' onClick={startLogout}>
+    <Button
+      fullWidth
+      variant='text'
+      color='secondary'
+      onClick={() => {
+        firebase.auth().signOut();
+      }}>
       Log out
     </Button>
   );

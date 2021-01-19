@@ -1,4 +1,3 @@
-import { useEffect, useReducer } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
@@ -9,12 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import AddNoteForm from './AddNoteForm';
 import NoteList from './NoteList';
 import Login from './Login';
-import AppContext from '../context';
-import appReducer from '../reducer';
-import { startSetNotes } from '../actions/notes';
-import { login, logout } from '../actions/auth';
 import { firebase } from '../firebase';
-import useFirebaseAuthentication from '../hooks/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Copyright = () => {
   return (
@@ -22,8 +17,7 @@ const Copyright = () => {
       {'Created by '}
       <Link color='inherit' href='https://github.com/mdmundo'>
         Edmundo Paulino
-      </Link>{' '}
-      {new Date().getFullYear()}
+      </Link>
       {'.'}
     </Typography>
   );
@@ -59,51 +53,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NoteApp = () => {
-  const defaultState = { auth: { uid: null }, notes: [] };
-  const [app, dispatch] = useReducer(appReducer, defaultState);
-
-  const user = useFirebaseAuthentication(firebase);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(login(user.uid));
-      startSetNotes(app, dispatch);
-    } else {
-      dispatch(logout());
-    }
-  }, [user]);
+  const [user, loading, error] = useAuthState(firebase.auth());
 
   const classes = useStyles();
 
   return (
-    <AppContext.Provider value={{ app, dispatch }}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Container component='main' className={classes.main} maxWidth='xs'>
-          <div className={classes.upper}>
-            <Avatar className={classes.avatar}>
-              <EventNoteIcon />
-            </Avatar>
-            <Typography component='h1' variant='h3'>
-              Notes
-            </Typography>
-          </div>
-          {user ? (
-            <>
-              <AddNoteForm />
-              <NoteList />
-            </>
-          ) : (
-            <Login />
-          )}
+    <div className={classes.root}>
+      <CssBaseline />
+      <Container component='main' className={classes.main} maxWidth='xs'>
+        <div className={classes.upper}>
+          <Avatar className={classes.avatar}>
+            <EventNoteIcon />
+          </Avatar>
+          <Typography component='h1' variant='h3'>
+            Notes
+          </Typography>
+        </div>
+        {user ? (
+          <>
+            <AddNoteForm />
+            <NoteList />
+          </>
+        ) : (
+          <Login />
+        )}
+      </Container>
+      <footer className={classes.footer}>
+        <Container maxWidth='sm'>
+          <Copyright />
         </Container>
-        <footer className={classes.footer}>
-          <Container maxWidth='sm'>
-            <Copyright />
-          </Container>
-        </footer>
-      </div>
-    </AppContext.Provider>
+      </footer>
+    </div>
   );
 };
 

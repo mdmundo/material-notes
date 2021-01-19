@@ -1,9 +1,14 @@
 import Button from '@material-ui/core/Button';
-import { startLogin } from '../actions/auth';
+import { firebase, provider } from '../firebase';
 
 const Login = () => {
   return (
-    <Button variant='contained' color='primary' onClick={startLogin}>
+    <Button
+      variant='contained'
+      color='primary'
+      onClick={() => {
+        firebase.auth().signInWithPopup(provider);
+      }}>
       Log in
     </Button>
   );

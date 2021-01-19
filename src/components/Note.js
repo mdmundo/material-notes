@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -10,8 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import AppContext from '../context';
-import { startRemoveNote, startToggleNote } from '../actions/notes';
+import database from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Note = ({ note }) => {
-  const { app, dispatch } = useContext(AppContext);
   const classes = useStyles();
 
   return (
@@ -35,10 +32,9 @@ const Note = ({ note }) => {
             <Checkbox
               checked={note.checked}
               onChange={(e) =>
-                startToggleNote(app, dispatch, {
-                  id: note.id,
-                  checked: e.target.checked
-                })
+                database
+                  .ref(`notes/${note.key}`)
+                  .update({ checked: e.target.checked })
               }
             />
           </Tooltip>
@@ -53,7 +49,7 @@ const Note = ({ note }) => {
           <Tooltip title='Delete this note' placement='right'>
             <IconButton
               edge='end'
-              onClick={() => startRemoveNote(app, dispatch, { id: note.id })}>
+              onClick={() => database.ref(`notes/${note.key}`).remove()}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>

@@ -1,11 +1,11 @@
-import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Note from './Note';
-import AppContext from '../context';
+import { useList } from 'react-firebase-hooks/database';
+import database from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -24,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NoteList = () => {
-  const { app } = useContext(AppContext);
+  const [snapshots, loading, error] = useList(database.ref('notes'));
 
   const classes = useStyles();
 
   return (
     <>
-      {app.notes.length === 0 ? (
+      {snapshots.length === 0 ? (
         <Grid item className={classes.grid}>
           <List className={classes.list}>
             <Paper className={classes.paper}>
@@ -43,8 +43,8 @@ const NoteList = () => {
       ) : (
         <Grid item className={classes.grid}>
           <List className={classes.list}>
-            {app.notes.map((note) => (
-              <Note key={note.id} note={note} />
+            {snapshots.map((note) => (
+              <Note key={note.key} note={{ key: note.key, ...note.val() }} />
             ))}
           </List>
         </Grid>
