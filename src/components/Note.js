@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import grey from '@material-ui/core/colors/grey';
 import database from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,9 +41,12 @@ const Note = ({ note }) => {
           </Tooltip>
         </ListItemIcon>
         <ListItemText
+          disableTypography
           primary={<Typography variant='body1'>{note.title}</Typography>}
           secondary={note.body.split('\n').map((str, index) => (
-            <Typography key={index}>{str}</Typography>
+            <Typography key={index} color='textSecondary'>
+              {str}
+            </Typography>
           ))}
         />
         <ListItemSecondaryAction>
