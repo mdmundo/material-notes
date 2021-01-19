@@ -76,7 +76,7 @@ const NoteApp = () => {
             <NoteList />
           </>
         ) : loading ? (
-          <Loading />
+          <Loading text='Loading User' />
         ) : (
           <Login />
         )}

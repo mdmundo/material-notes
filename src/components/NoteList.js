@@ -36,7 +36,7 @@ const NoteList = () => {
   return (
     <>
       {loadingNotes ? (
-        <Loading />
+        <Loading text='Loading Notes' />
       ) : snapshots.length === 0 ? (
         <Grid item className={classes.grid}>
           <List className={classes.list}>
