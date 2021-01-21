@@ -47,7 +47,7 @@ const Note = ({ note }) => {
           primary={<Typography variant='body1'>{note.title}</Typography>}
           secondary={note.body.split('\n').map((str, index) => (
             <Typography key={index} color='textSecondary'>
-              {str}
+              {str || '\u00A0'}
             </Typography>
           ))}
         />
