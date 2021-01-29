@@ -36,13 +36,12 @@ const AddNoteForm = () => {
     setBodyHelper(body ? '' : 'Body can not be empty.');
 
     if (title && body) {
-      database
-        .ref(`users/${user?.uid}/notes`)
-        .push({
-          title,
-          body,
-          createdAt: firebase.database.ServerValue.TIMESTAMP
-        });
+      database.ref(`users/${user?.uid}/notes`).push({
+        title,
+        body,
+        importance: 2,
+        createdAt: firebase.database.ServerValue.TIMESTAMP
+      });
       setTitle('');
       setBody('');
     }
