@@ -62,7 +62,7 @@ const Note = ({ note }) => {
         <ListItemSecondaryAction>
           <Grid container spacing={1}>
             <Grid item xs={6}>
-              <Tooltip title='Delete this note' placement='bottom-end'>
+              <Tooltip title='Delete' placement='bottom-end'>
                 <IconButton
                   edge='end'
                   onClick={() =>
@@ -74,7 +74,7 @@ const Note = ({ note }) => {
             </Grid>
             <Grid item xs={6}>
               <Tooltip
-                title={note.checked ? 'Uncheck this note' : 'Check this note'}
+                title={note.checked ? 'Uncheck' : 'Check'}
                 placement='bottom-start'>
                 <IconButton
                   edge='end'
