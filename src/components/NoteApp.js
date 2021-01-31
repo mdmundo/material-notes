@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import ListAltRoundedIcon from '@material-ui/icons/ListAltRounded';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -64,7 +64,7 @@ const NoteApp = () => {
       <Container component='main' className={classes.main} maxWidth='xs'>
         <div className={classes.upper}>
           <Avatar className={classes.avatar}>
-            <EventNoteIcon />
+            <ListAltRoundedIcon />
           </Avatar>
           <Typography component='h1' variant='h3'>
             Notes

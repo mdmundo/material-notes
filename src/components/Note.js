@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { formatDistanceToNowStrict } from 'date-fns';
 import Avatar from '@material-ui/core/Avatar';
@@ -16,14 +15,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
 import BrushIcon from '@material-ui/icons/Brush';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
-import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { red, orange, green, blue, purple } from '@material-ui/core/colors';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import database, { firebase } from '../firebase';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
