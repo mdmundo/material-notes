@@ -52,7 +52,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: purple[300]
   },
   break: {
-    wordBreak: 'break-all'
+    wordBreak: 'normal',
+    overflowWrap: 'anywhere'
   },
   item: {
     minHeight: theme.spacing(18)
