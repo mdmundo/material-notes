@@ -82,7 +82,7 @@ const NoteApp = () => {
         )}
       </Container>
       <footer className={classes.footer}>
-        <Container maxWidth='sm'>
+        <Container>
           <Copyright />
         </Container>
       </footer>
