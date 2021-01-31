@@ -15,8 +15,18 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.addScope('profile');
-provider.addScope('email');
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.addScope('profile');
+googleProvider.addScope('email');
 
-export { firebase, provider, database as default };
+const githubProvider = new firebase.auth.GithubAuthProvider();
+
+const twitterProvider = new firebase.auth.TwitterAuthProvider();
+
+export {
+  firebase,
+  googleProvider,
+  githubProvider,
+  twitterProvider,
+  database as default
+};
